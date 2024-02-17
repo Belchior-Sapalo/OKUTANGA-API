@@ -1,4 +1,4 @@
 .env
 
 # dependencies
-node_nodules/
+node_modules/
