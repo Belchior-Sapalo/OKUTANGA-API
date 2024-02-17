@@ -43,7 +43,7 @@ const umbundoController = {
         })
         .catch((error)=>{
             res
-            .status(200)
+            .status(400)
             .json({
                 'msg': error
             })
