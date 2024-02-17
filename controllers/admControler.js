@@ -3,9 +3,9 @@ const bcrypt = require('bcrypt')
 
 const admController = {
     criarConta: async(req, res)=>{
-        const { email, senha } = req.body
+        const { nome, email, senha, } = req.body
 
-        if(!email || !senha){
+        if(!email || !senha || !nome){
             res
             .status(400)
             .json({
@@ -21,6 +21,7 @@ const admController = {
             if(!verify){
                 const hashSenha = await bcrypt.hash(senha, 10)
                 await admModel.create({
+                    nome,
                     email, 
                     senha: hashSenha
                 })
@@ -64,6 +65,13 @@ const admController = {
                     'msg': 'Usuário não encontrado'
                 })
             }else{
+                
+                const admNome = await admModel.findOne({
+                    attributes: ['nome']
+    ,                where: {
+                        email: email
+                    }
+                })
                 const auth = await bcrypt.compare(senha, hashSenha.senha)
                 if(!auth){
                     res
@@ -77,7 +85,8 @@ const admController = {
                     .status(200)
                     .json({
                         "auth": true,
-                        'msg': 'logado'
+                        'msg': 'logado',
+                        "nome": admNome.nome
                     })
                 }
             }

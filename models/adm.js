@@ -8,6 +8,10 @@ const administrador = db.define('administrador', {
         autoIncrement: true,
         primaryKey: true
     },
+    nome: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
     email: {
         type: DataTypes.STRING,
         allowNull: false
