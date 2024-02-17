@@ -23,4 +23,5 @@ function criarTabelas(){
     palavrasUmbundo.sync();
 }
 
+
 module.exports = palavrasPortugues;
