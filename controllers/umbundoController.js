@@ -10,44 +10,45 @@ function formatarPalavra(palavra){
 const umbundoController = {
     salvarPalavra: async(req, res)=>{
         const { palavraUmbundo, significado } = req.body;
-        const resultadoBusca = await portuguesModel.findOne({
-            where: {
-                palavraPortugues: significado
-            }
-        });
 
-        let novaPalavraPortugues;
-
-        if(!resultadoBusca){
-            await portuguesModel.create({
-                palavraPortugues: formatarPalavra(significado)
-            });
-
-            novaPalavraPortugues = await portuguesModel.findOne({
+            const resultadoBusca = await portuguesModel.findOne({
                 where: {
                     palavraPortugues: significado
                 }
             });
-        }
-
-        await umbundoModel.create({
-            palavraUmbundo: formatarPalavra(palavraUmbundo),
-            PalavrasPortugueId: resultadoBusca ? resultadoBusca.id : novaPalavraPortugues.id
-        })
-        .then(()=>{
-            res
-            .status(201)
-            .json({
-                'msg': 'Nova palavra adicionada com sucesso'
+    
+            let novaPalavraPortugues;
+    
+            if(!resultadoBusca){
+                await portuguesModel.create({
+                    palavraPortugues: formatarPalavra(significado)
+                });
+    
+                novaPalavraPortugues = await portuguesModel.findOne({
+                    where: {
+                        palavraPortugues: significado
+                    }
+                });
+            }
+    
+            await umbundoModel.create({
+                palavraUmbundo: formatarPalavra(palavraUmbundo),
+                PalavrasPortugueId: resultadoBusca ? resultadoBusca.id : novaPalavraPortugues.id
             })
-        })
-        .catch((error)=>{
-            res
-            .status(400)
-            .json({
-                'msg': error
+            .then(()=>{
+                res
+                .status(201)
+                .json({
+                    'msg': 'Nova palavra adicionada com sucesso'
+                })
             })
-        })
+            .catch((error)=>{
+                res
+                .status(400)
+                .json({
+                    'msg': error
+                })
+            })
         
     },
     buscarSignificado: async(req, res)=>{
