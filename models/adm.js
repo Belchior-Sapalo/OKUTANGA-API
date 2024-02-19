@@ -20,6 +20,10 @@ const administrador = db.define('administrador', {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { timestamps: false });
+}, { timestamps: false, tableName: 'administrador' });
+
+function criarTabela(){
+    administrador.sync()
+}
 
 module.exports = administrador;

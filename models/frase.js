@@ -1,6 +1,5 @@
 const db = require('../database/db');
 const {DataTypes} = require('sequelize');
-const traducaoModel = require('./traducao')
 
 const frase = db.define('Frase', {
     id: {
@@ -9,18 +8,18 @@ const frase = db.define('Frase', {
         autoIncrement: true,
         primaryKey: true
     },
-    content: {
+    frase: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    traducao: {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, {timestamps: false})
+}, {timestamps: false, tableName: 'frases_traducao'})
 
-frase.hasOne(traducaoModel, { onDelete: 'CASCADE'})
-traducaoModel.belongsTo(frase)
-
-function criarTabelas(){
+function criarTabela(){
     frase.sync()
-    traducaoModel.sync()
 }
 
 

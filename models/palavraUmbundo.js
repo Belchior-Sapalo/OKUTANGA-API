@@ -12,6 +12,6 @@ const palavrasUmbundo = db.define( 'PalavrasUmbundo', {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { timestamps: false } );
+}, { timestamps: false, tableName: 'palavras_umbundo' } );
  
 module.exports = palavrasUmbundo;

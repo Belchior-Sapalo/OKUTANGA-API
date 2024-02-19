@@ -13,7 +13,7 @@ const palavrasPortugues = db.define( 'PalavrasPortugues', {
         type: DataTypes.STRING,
         allowNull: false
     }
-}, { timestamps: false } );
+}, { timestamps: false, tableName: 'palavras_portugues' } );
 
 palavrasPortugues.hasMany(palavrasUmbundo, { as: 'significados', onDelete: 'CASCADE'});
 palavrasUmbundo.belongsTo(palavrasPortugues)
