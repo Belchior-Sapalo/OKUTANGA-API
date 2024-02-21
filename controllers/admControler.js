@@ -67,8 +67,8 @@ const admController = {
             }else{
                 
                 const admNome = await admModel.findOne({
-                    attributes: ['nome']
-    ,                where: {
+                    attributes: ['nome'],
+                    where: {
                         email: email
                     }
                 })
