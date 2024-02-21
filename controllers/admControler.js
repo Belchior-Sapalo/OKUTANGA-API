@@ -77,14 +77,14 @@ const admController = {
                     res
                     .status(400)
                     .json({
-                        "auth": false,
+                        "auth": auth,
                         'msg': 'Senha incorreta'
                     })
                 }else{
                     res
                     .status(200)
                     .json({
-                        "auth": true,
+                        "auth": auth,
                         'msg': 'logado',
                         "nome": admNome.nome
                     })
