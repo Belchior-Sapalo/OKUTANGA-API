@@ -14,7 +14,7 @@ app.use(admRouter);
 app.use(fraseRouter);
 
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{
     console.log(`Servidor rodando em http://localhost:${PORT}`)
 })
