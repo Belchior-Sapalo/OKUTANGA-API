@@ -2,45 +2,6 @@ const admModel = require('../models/adm');
 const bcrypt = require('bcrypt')
 
 const admController = {
-    criarConta: async(req, res)=>{
-        const { nome, email, senha, } = req.body
-
-        if(!email || !senha || !nome){
-            res
-            .status(400)
-            .json({
-                'msg': 'Preencha todos os campos'
-            })
-        }else{
-            const verify = await admModel.findOne({
-                where: {
-                    email,
-                }
-            })
-
-            if(!verify){
-                const hashSenha = await bcrypt.hash(senha, 10)
-                await admModel.create({
-                    nome,
-                    email, 
-                    senha: hashSenha
-                })
-                .then(()=>{
-                    res
-                    .status(201)
-                    .json({
-                        'msg': 'Administrador cadastrado com sucesso'
-                    })
-                })
-            }else{
-                res
-                    .status(400)
-                    .json({
-                        'msg': 'Email já existe!Tente outro'
-                    })
-            }
-        }
-    },
     login: async(req, res)=>{
         const { email, senha } = req.body
 
