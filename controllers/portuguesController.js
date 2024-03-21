@@ -111,7 +111,6 @@ const portuguesController = {
                 "msg": "Todas as palavras do dicionário foram deletadas"
             })
         }catch(error){
-
             await transaction.rollback();
 
             res
@@ -119,7 +118,6 @@ const portuguesController = {
             .json({
                 "msg": "Falha ao deletar todas as palavras do dicionário"
             })
-            console.log(error)
         }
     }
 };

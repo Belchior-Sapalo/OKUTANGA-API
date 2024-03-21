@@ -1,5 +1,6 @@
 const admModel = require('../models/adm');
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const admController = {
     login: async(req, res)=>{
@@ -26,9 +27,8 @@ const admController = {
                     'msg': 'Usuário não encontrado'
                 })
             }else{
-                
-                const admNome = await admModel.findOne({
-                    attributes: ['nome'],
+                const adm = await admModel.findOne({
+                    attributes: ['id','nome'],
                     where: {
                         email: email
                     }
@@ -42,13 +42,11 @@ const admController = {
                         'msg': 'Senha incorreta'
                     })
                 }else{
-                    res
-                    .status(200)
-                    .json({
-                        "auth": auth,
-                        'msg': 'logado',
-                        "nome": admNome.nome
-                    })
+                   const SECRET = process.env.SECRET
+                   const token = jwt.sign({admId: adm.id}, SECRET, {expiresIn: '2h'})
+                   res
+                   .status(200)
+                   .json({msg: 'logado', auth, token, status: 200})
                 }
             }
         }
